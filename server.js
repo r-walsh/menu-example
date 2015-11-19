@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var foodCtrl = require('./controller/foodCtrl');
+var userCtrl = require('./controller/userCtrl');
 var mongoose = require('mongoose');
 var mongoUri = 'mongodb://localhost:27017/newMenu'
 var port = 8090;
@@ -16,14 +17,22 @@ mongoose.connection.once('open', function() {
 	console.log('Connected to MongoDB at ' + mongoUri);
 });
 
+////////
+//FOOD//
+////////
 
 app.get('/api/food', foodCtrl.getFoods);
 app.get('/api/food/one/:id', foodCtrl.getFood);
-
 app.post('/api/food', foodCtrl.addFood);
-
 app.delete('/api/food', foodCtrl.removeFood);
+app.post('/api/food/review', foodCtrl.addReview);
 
+
+////////
+//USER//
+////////
+
+app.post('/api/user', userCtrl.addUser);
 
 
 
